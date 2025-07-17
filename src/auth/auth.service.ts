@@ -1,30 +1,54 @@
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
-import { UsersService } from '../users/users.service';
-import { User } from 'src/users/user.entity/user.entity';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from "@nestjs/common";
+import { RegisterDto } from "./dto/register.dto";
+
+import { JwtService } from "@nestjs/jwt";
+import * as bcryptjs from "bcryptjs";
+import { UsersService } from "src/users/users.service";
+import { LoginDto } from "./dto/login.dto";
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService,
-  ) {}
+  constructor(private readonly usersService: UsersService) {}
 
-  async validateUser(username: string, pass: string): Promise<User | null> {
-    const user = this.usersService.findOne(username);
-    if (user && (await bcrypt.compare(pass, user.password))) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...result } = user;
-      return result as User;
+  async register({ password, email, name }: RegisterDto) {
+    const user = await this.usersService.findOneByEmail(email);
+
+    if (user) {
+      throw new BadRequestException("Email already exists");
     }
-    return null;
+
+    const hashedPassword = await bcryptjs.hash(password, 10);
+
+    await this.usersService.create({
+      name,
+      email,
+      password: hashedPassword,
+    });
+
+    return {
+      message: "User created successfully",
+    };
   }
 
-  login(user: { username: string; userId: number }) {
-    const payload = { username: user.username, sub: user.userId };
+  async login({ email, password }: LoginDto) {
+    const user = await this.usersService.findOneByEmail(email);
+
+    if (!user) {
+      throw new UnauthorizedException("Invalid email");
+    }
+
+    const isPasswordValid = await bcryptjs.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException("Invalid password");
+    }
+
     return {
-      access_token: this.jwtService.sign(payload),
+      email: user.email,
     };
   }
 }
