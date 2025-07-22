@@ -1,9 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBusDto } from './dto/create-bus.dto';
 import { UpdateBusDto } from './dto/update-bus.dto';
+import { Repository } from 'typeorm';
+import { Bus } from './entities/bus.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class BusesService {
+  constructor(
+    @InjectRepository(Bus)
+    private busRepository: Repository<Bus>,
+  ) {}
+
   create(createBusDto: CreateBusDto) {
     return 'This action adds a new bus';
   }
