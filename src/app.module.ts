@@ -1,26 +1,17 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './auth/auth.module';
+
+import googleOauthConfig from './auth/config/google-oauth.config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres', // o 'mysql'
-      host: 'localhost',
-      port: 5432, // o 3306 para MySQL
-      username: 'tu_usuario',
-      password: 'tu_contraseña',
-      database: 'nombre_bd',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: false, // importante: false en producción
-      migrations: ['dist/migrations/*.js'],
-      migrationsRun: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+ 
     }),
-    UsersModule,
-    AuthModule,
+    ConfigModule.forFeature(googleOauthConfig),
   ],
   controllers: [AppController],
   providers: [AppService],
