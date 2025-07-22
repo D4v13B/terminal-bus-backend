@@ -4,6 +4,14 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { RutasModule } from './rutas/rutas.module';
+import { ProvinciasModule } from './provincias/provincias.module';
+import { ParadasModule } from './paradas/paradas.module';
+import { BusesModule } from './buses/buses.module';
+import { AndenesModule } from './andenes/andenes.module';
+import { SalidasProgramadasModule } from './salidas_programadas/salidas_programadas.module';
+import { BoletosModule } from './boletos/boletos.module';
+import { NotificacionesModule } from './notificaciones/notificaciones.module';
 
 @Module({
   imports: [
@@ -21,6 +29,14 @@ import { AuthModule } from './auth/auth.module';
     }),
     UsersModule,
     AuthModule,
+    RutasModule,
+    ProvinciasModule,
+    ParadasModule,
+    BusesModule,
+    AndenesModule,
+    SalidasProgramadasModule,
+    BoletosModule,
+    NotificacionesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

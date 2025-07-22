@@ -16,6 +16,6 @@ export class UsersService {
 
   async create(username: string, password: string): Promise<User> {
     const user = this.usersRepository.create({ username, password });
-    return this.usersRepository.save(user);
+    return await this.usersRepository.save(user);
   }
 }

@@ -2,12 +2,12 @@ import { DataSource } from 'typeorm';
 import { User } from './src/users/user.entity/user.entity';
 
 export default new DataSource({
-  type: 'postgres', // o mysql
+  type: 'mysql', // o mysql
   host: 'localhost',
-  port: 5432,
-  username: 'tu_usuario',
-  password: 'tu_contraseña',
-  database: 'nombre_bd',
+  port: 3306,
+  username: 'root',
+  password: 'monchillo24',
+  database: 'terminal',
   entities: [User],
   migrations: ['src/migrations/*.ts'],
   synchronize: false,
