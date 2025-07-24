@@ -1,0 +1,1 @@
+create table `jwks` (`id` varchar(36) not null primary key, `publicKey` text not null, `privateKey` text not null, `createdAt` datetime not null);
