@@ -1,1 +1,5 @@
-export class CreateRutaDto {}
+export class CreateRutaDto {
+
+    
+
+}

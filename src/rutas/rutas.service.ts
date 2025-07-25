@@ -1,26 +1,43 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Ruta } from 'src/rutas/entities/ruta.entity'
 import { CreateRutaDto } from './dto/create-ruta.dto';
 import { UpdateRutaDto } from './dto/update-ruta.dto';
 
+
 @Injectable()
 export class RutasService {
-  create(createRutaDto: CreateRutaDto) {
-    return 'This action adds a new ruta';
+  constructor(
+    @InjectRepository(Ruta)
+    private rutaRepository: Repository<Ruta>,
+  ) {}
+
+  async create(createRutaDto: CreateRutaDto) {
+    return await this.rutaRepository.save(createRutaDto);
   }
 
-  findAll() {
-    return `This action returns all rutas`;
+  async findAll() {
+    return await this.rutaRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} ruta`;
+  async findOne(id: number) {
+    return await this.rutaRepository.findOne({where: { id }});
   }
 
-  update(id: number, updateRutaDto: UpdateRutaDto) {
-    return `This action updates a #${id} ruta`;
+  async update(id: number, updateRutaDto: UpdateRutaDto) {
+    const toUpdate = await this.rutaRepository.findOne({ where: { id }});
+
+    if (!toUpdate) {
+      throw new Error(`Ruta with id ${id} not found`);
+    }
+
+    const updated = Object.assign(toUpdate, updateRutaDto);
+
+    return await this.rutaRepository.save(updated);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} ruta`;
+  async remove(id: number) {
+    return await this.rutaRepository.delete(id);
   }
 }
