@@ -1,7 +1,8 @@
-import { Ruta } from 'src/rutas/entities/ruta.entity';
+// provincia.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Terminal } from 'src/terminales/entities/terminal.entity';
 
-@Entity('provincias')
+@Entity()
 export class Provincia {
   @PrimaryGeneratedColumn()
   id: number;
@@ -9,9 +10,6 @@ export class Provincia {
   @Column()
   nombre: string;
 
-  @OneToMany(() => Ruta, (ruta) => ruta.origen)
-  rutasOrigen: Ruta[];
-
-  @OneToMany(() => Ruta, (ruta) => ruta.destino)
-  rutasDestino: Ruta[];
+  @OneToMany(() => Terminal, terminal => terminal.provincia)
+  terminales: Terminal[];
 }

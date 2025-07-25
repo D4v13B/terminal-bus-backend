@@ -1,27 +1,21 @@
-import { Ruta } from 'src/rutas/entities/ruta.entity';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
+// parada.entity.ts
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { ParadaRuta } from 'src/parada-ruta/entities/parada-ruta.entity';
 
-@Entity('paradas')
+@Entity()
 export class Parada {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Ruta, (ruta) => ruta.paradas)
-  @JoinColumn({ name: 'ruta_id' })
-  ruta: Ruta;
-
   @Column()
   nombre: string;
 
-  @Column({ type: 'int' }) // Orden en la ruta
-  orden: number;
+  @Column('decimal')
+  lat: number;
 
-  @Column({ type: 'int' }) // Tiempo desde salida (en minutos)
-  tiempo_estimado_llegada: number;
+  @Column('decimal')
+  long: number;
+
+  @OneToMany(() => ParadaRuta, paradaRuta => paradaRuta.parada)
+  paradasRuta: ParadaRuta[];
 }

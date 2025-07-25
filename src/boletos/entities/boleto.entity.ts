@@ -1,49 +1,25 @@
-import { SalidaProgramada } from 'src/salidas_programadas/entities/salidas_programada.entity';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  CreateDateColumn,
-} from 'typeorm';
+// boleto.entity.ts
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { ParadaRuta } from 'src/parada-ruta/entities/parada-ruta.entity';
+import { User } from 'src/users/entities/user.entity';
 
-export enum EstadoBoleto {
-  RESERVADO = 'RESERVADO',
-  PAGADO = 'PAGADO',
-  CANCELADO = 'CANCELADO',
-  REEMBOLSADO = 'REEMBOLSADO',
-}
-
-@Entity('boletos')
+@Entity()
 export class Boleto {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => SalidaProgramada)
-  @JoinColumn({ name: 'salida_id' })
-  salida: SalidaProgramada;
-
-  // @ManyToOne(() => Pasajero)
-  // @JoinColumn({ name: 'pasajero_id' })
-  // pasajero: Pasajero;
+  @Column()
+  fechaUso: Date;
 
   @Column()
-  asiento: string;
+  valido: boolean;
 
-  @Column({ type: 'float' })
-  precio: number;
+  @Column({ type: 'uuid' })
+  tokenBoleto: string;
 
-  @Column({
-    type: 'enum',
-    enum: EstadoBoleto,
-    default: EstadoBoleto.RESERVADO,
-  })
-  estado: EstadoBoleto;
+  @ManyToOne(() => ParadaRuta, paradaRuta => paradaRuta.boletos)
+  paradaRuta: ParadaRuta;
 
-  @Column()
-  codigo_qr: string;
-
-  @CreateDateColumn({ name: 'creado_en' })
-  creadoEn: Date;
+  @ManyToOne(() => User, user => user.boletos)
+  user: User;
 }

@@ -1,36 +1,29 @@
-import { Parada } from 'src/paradas/entities/parada.entity';
+// ruta.entity.ts
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 import { Provincia } from 'src/provincias/entities/provincia.entity';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  OneToMany,
-  JoinColumn,
-} from 'typeorm';
+import { Terminal } from 'src/terminales/entities/terminal.entity';
+import { ParadaRuta } from 'src/parada-ruta/entities/parada-ruta.entity';
 
-@Entity('rutas')
+@Entity()
 export class Ruta {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Provincia, (provincia) => provincia.rutasOrigen)
-  @JoinColumn({ name: 'origen_id' })
-  origen: Provincia;
+  @Column()
+  distancia: number;
 
-  @ManyToOne(() => Provincia, (provincia) => provincia.rutasDestino)
-  @JoinColumn({ name: 'destino_id' })
-  destino: Provincia;
+  @Column()
+  anden: string;
 
-  @Column({ type: 'float' })
-  distancia_km: number;
+  @ManyToOne(() => Provincia)
+  prov: Provincia;
 
-  @Column({ type: 'int' }) // duración en minutos
-  duracion_estimada: number;
+  @ManyToOne(() => Terminal)
+  to: Terminal;
 
-  @Column({ default: true })
-  activa: boolean;
+  @ManyToOne(() => Terminal)
+  td: Terminal;
 
-  @OneToMany(() => Parada, (parada) => parada.ruta, { cascade: true })
-  paradas: Parada[];
+  @OneToMany(() => ParadaRuta, paradaRuta => paradaRuta.ruta)
+  paradasRuta: ParadaRuta[];
 }
