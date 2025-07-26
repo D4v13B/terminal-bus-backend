@@ -5,7 +5,6 @@ import { Ruta } from 'src/rutas/entities/ruta.entity'
 import { CreateRutaDto } from './dto/create-ruta.dto';
 import { UpdateRutaDto } from './dto/update-ruta.dto';
 
-
 @Injectable()
 export class RutasService {
   constructor(
@@ -17,9 +16,11 @@ export class RutasService {
     return await this.rutaRepository.save(createRutaDto);
   }
 
-  async findAll() {
-    return await this.rutaRepository.find();
-  }
+  async findAll(): Promise<Ruta[]> {
+  return this.rutaRepository.find({
+    relations: ['prov'],
+  });
+}
 
   async findOne(id: number) {
     return await this.rutaRepository.findOne({where: { id }});

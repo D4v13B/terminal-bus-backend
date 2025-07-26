@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { GetRutaDto } from './dto/get-ruta-response.dto';
 import { RutasService } from './rutas.service';
 import { CreateRutaDto } from './dto/create-ruta.dto';
 import { UpdateRutaDto } from './dto/update-ruta.dto';
@@ -13,8 +14,16 @@ export class RutasController {
   }
 
   @Get()
-  findAll() {
-    return this.rutasService.findAll();
+  async getRutas(): Promise<GetRutaDto[]> {
+    const rutas = await this.rutasService.findAll();
+
+    return rutas.map(ruta => ({
+      provincia: ruta.prov?.nombre,
+      distancia: ruta.distancia,
+      anden: ruta.anden,
+      horaEntrada: ruta.horaEntrada,
+      horaSalida: ruta.horaSalida,
+    }));
   }
 
   @Get(':id')
