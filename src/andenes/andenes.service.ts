@@ -1,26 +1,43 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Anden  } from './entities/anden.entity';
 import { CreateAndeneDto } from './dto/create-andene.dto';
 import { UpdateAndeneDto } from './dto/update-andene.dto';
 
 @Injectable()
 export class AndenesService {
-  create(createAndeneDto: CreateAndeneDto) {
-    return 'This action adds a new andene';
+  
+  constructor(
+      @InjectRepository(Anden)
+      private andenRepository: Repository<Anden>,
+    ) {}
+
+  async create(createAndeneDto: CreateAndeneDto) {
+    return await this.andenRepository.save(createAndeneDto);
   }
 
-  findAll() {
-    return `This action returns all andenes`;
+  async findAll() {
+    return await this.andenRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} andene`;
+  async findOne(id: number) {
+    return await this.andenRepository.findOne({where: { id }});
   }
 
-  update(id: number, updateAndeneDto: UpdateAndeneDto) {
-    return `This action updates a #${id} andene`;
+  async update(id: number, updateAndeneDto: UpdateAndeneDto) {
+    const toUpdate = await this.andenRepository.findOne({ where: { id }});
+
+    if(!toUpdate){
+      throw new Error(`Ruta with id ${id} not found`)
+    }
+
+    const updated = Object.assign(toUpdate, updateAndeneDto);
+
+    return await this.andenRepository.save(updated);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} andene`;
+  async remove(id: number) {
+    return await this.andenRepository.delete(id);
   }
 }

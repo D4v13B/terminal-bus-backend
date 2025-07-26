@@ -13,6 +13,8 @@ import { NotificacionesModule } from './notificaciones/notificaciones.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppDataSourceOptions } from './database/data-source';
 // import { AppDataSource } from './database/database.provider';
+import { ParadaRutaModule } from './parada-ruta/parada-ruta.module';
+import { TerminalesModule } from './terminales/terminales.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { AppDataSourceOptions } from './database/data-source';
     SalidasProgramadasModule,
     BoletosModule,
     NotificacionesModule,
+    ParadaRutaModule,
+    TerminalesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

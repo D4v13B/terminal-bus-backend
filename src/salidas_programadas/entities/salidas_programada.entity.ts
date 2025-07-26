@@ -1,4 +1,4 @@
-import { Anden } from 'src/andenes/entities/andene.entity';
+import { Anden } from 'src/andenes/entities/anden.entity';
 import { Bus } from 'src/buses/entities/bus.entity';
 import { Ruta } from 'src/rutas/entities/ruta.entity';
 import {

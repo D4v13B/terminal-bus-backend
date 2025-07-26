@@ -15,6 +15,12 @@ export class Ruta {
   @Column()
   anden: string;
 
+  @Column()
+  horaEntrada: string;
+
+  @Column()
+  horaSalida: string;
+
   @ManyToOne(() => Provincia)
   prov: Provincia;
 

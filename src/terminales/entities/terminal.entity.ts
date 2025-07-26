@@ -1,8 +1,7 @@
-// terminal.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Provincia } from 'src/provincias/entities/provincia.entity';
 
-@Entity()
+@Entity('terminales')
 export class Terminal {
   @PrimaryGeneratedColumn()
   id: number;
@@ -10,10 +9,10 @@ export class Terminal {
   @Column()
   nom: string;
 
-  @Column('decimal')
+  @Column()
   long: number;
 
-  @Column('decimal')
+  @Column()
   lat: number;
 
   @ManyToOne(() => Provincia, provincia => provincia.terminales)

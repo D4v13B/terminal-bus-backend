@@ -1,4 +1,3 @@
-// parada-ruta.entity.ts
 import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, OneToMany } from 'typeorm';
 import { Ruta } from 'src/rutas/entities/ruta.entity';
 import { Parada } from 'src/paradas/entities/parada.entity';
