@@ -1,6 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsInt, IsString, IsNotEmpty, IsDecimal} from 'class-validator'
-import { Decimal128 } from "typeorm";
+import { IsInt, IsString, IsNotEmpty} from 'class-validator'
 
 export class GetParadaRuta{
 
@@ -9,8 +8,8 @@ export class GetParadaRuta{
     nombre: string;
 
     @ApiProperty({ example: 1.50 })
-    @IsDecimal()
-    precio: Decimal128;
+    @IsInt()
+    precio: number;
 
     @ApiProperty({ example: 1234 })
     @IsString()
