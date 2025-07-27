@@ -15,6 +15,6 @@ export class Terminal {
   @Column()
   lat: number;
 
-  @ManyToOne(() => Provincia, provincia => provincia.terminales)
+  @ManyToOne(() => Provincia, (provincia) => provincia.terminales)
   provincia: Provincia;
 }

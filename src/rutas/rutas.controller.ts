@@ -1,5 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException, HttpCode, InternalServerErrorException, Put } from '@nestjs/common';
-import { ApiTags, ApiBody, ApiCreatedResponse, ApiOkResponse, ApiParam } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  BadRequestException,
+  HttpCode,
+  InternalServerErrorException,
+  Put,
+} from '@nestjs/common';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiParam,
+} from '@nestjs/swagger';
 import { GetRutaDto } from './dto/get-ruta.dto';
 import { RutasService } from './rutas.service';
 import { CreateRutaDto } from './dto/create-ruta.dto';
@@ -12,33 +28,26 @@ export class RutasController {
   @Post()
   @HttpCode(201)
   @ApiBody({ type: CreateRutaDto })
-  @ApiCreatedResponse({ description: 'Ruta creada exitosamente.'})
+  @ApiCreatedResponse({ description: 'Ruta creada exitosamente.' })
   create(@Body() createRutaDto: CreateRutaDto) {
-
-    try{
-
-    return this.rutasService.create(createRutaDto);
-
-    }catch(error){
-
-      if(error instanceof BadRequestException){
+    try {
+      return this.rutasService.create(createRutaDto);
+    } catch (error) {
+      if (error instanceof BadRequestException) {
         throw error;
-
       }
 
       throw new InternalServerErrorException('Error inesperado');
     }
-
   }
-  
 
   @Get()
   @HttpCode(200)
-  @ApiOkResponse({ type: [GetRutaDto]})
+  @ApiOkResponse({ type: [GetRutaDto] })
   async getRutas(): Promise<GetRutaDto[]> {
     const rutas = await this.rutasService.findAll();
 
-    return rutas.map(ruta => ({
+    return rutas.map((ruta) => ({
       provincia: ruta.prov?.nombre,
       distancia: ruta.distancia,
       anden: ruta.anden,
@@ -49,7 +58,7 @@ export class RutasController {
 
   @Get(':id')
   @HttpCode(200)
-  @ApiOkResponse({ type: GetRutaDto})
+  @ApiOkResponse({ type: GetRutaDto })
   findOne(@Param('id') id: string) {
     return this.rutasService.findOne(+id);
   }

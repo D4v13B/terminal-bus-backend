@@ -10,6 +10,6 @@ export class Provincia {
   @Column()
   nombre: string;
 
-  @OneToMany(() => Terminal, terminal => terminal.provincia)
+  @OneToMany(() => Terminal, (terminal) => terminal.provincia)
   terminales: Terminal[];
 }

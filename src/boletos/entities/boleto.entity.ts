@@ -17,9 +17,9 @@ export class Boleto {
   @Column({ type: 'uuid' })
   tokenBoleto: string;
 
-  @ManyToOne(() => ParadaRuta, paradaRuta => paradaRuta.boletos)
+  @ManyToOne(() => ParadaRuta, (paradaRuta) => paradaRuta.boletos)
   paradaRuta: ParadaRuta;
 
-  @ManyToOne(() => User, user => user.boletos)
+  @ManyToOne(() => User, (user) => user.boletos)
   user: User;
 }
