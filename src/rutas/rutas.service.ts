@@ -32,12 +32,14 @@ export class RutasService {
 
   async findAll(): Promise<Ruta[]> {
   return this.rutaRepository.find({
-    relations: ['prov'],
+    relations: ['prov', 'td', 'to'],
   });
 }
 
   async findOne(id: number) {
-    return await this.rutaRepository.findOne({where: { id }});
+    return await this.rutaRepository.findOne({where: { id },
+    relations: ['paradasRuta', 'paradasRuta.parada'],
+    });
   }
 
   async update(id: number, updateRutaDto: UpdateRutaDto) {

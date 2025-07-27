@@ -39,7 +39,9 @@ export class RutasController {
     const rutas = await this.rutasService.findAll();
 
     return rutas.map(ruta => ({
-      provincia: ruta.prov?.nombre,
+      id: ruta.id,
+      nombreTo: ruta.to?.nombre,
+      nombreTd: ruta.td?.nombre,
       distancia: ruta.distancia,
       anden: ruta.anden,
       horaEntrada: ruta.horaEntrada,
@@ -52,6 +54,7 @@ export class RutasController {
   @ApiOkResponse({ type: GetRutaDto})
   findOne(@Param('id') id: string) {
     return this.rutasService.findOne(+id);
+    
   }
 
   @Put(':id')

@@ -21,6 +21,7 @@ export class ParadaRutaController {
     const paradaruta = await this.paradaRutaService.findAll();
 
     return paradaruta.map(paradaRuta => ({
+      id: paradaRuta.id,
       nombre: paradaRuta.ruta.prov.nombre,
       precio: paradaRuta.precio,
       long: paradaRuta.parada.long,

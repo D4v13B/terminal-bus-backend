@@ -7,7 +7,7 @@ export class Terminal {
   id: number;
 
   @Column()
-  nom: string;
+  nombre: string;
 
   @Column()
   long: number;

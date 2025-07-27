@@ -1,7 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsInt, IsString, IsNotEmpty} from 'class-validator'
+import { IsInt, IsString, IsNotEmpty, IsIn} from 'class-validator'
 
 export class GetParadaRuta{
+
+    @ApiProperty({ example: 1 })
+    @IsInt()
+    id: number;
 
     @ApiProperty({ example: 'Penonome' })
     @IsString()

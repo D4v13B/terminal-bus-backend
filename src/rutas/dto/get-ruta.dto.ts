@@ -3,11 +3,19 @@ import { IsInt, IsString, IsNotEmpty} from 'class-validator'
 
 export class GetRutaDto {
 
-  @ApiProperty({ example: 'Penonome' })
-  @IsString()
-  provincia: string;
+  @ApiProperty({ example: 63 })
+  @IsInt()
+  id: number;
 
-  @ApiProperty({ example: 300 })
+  @ApiProperty({ example: 'Gran Terminal de Transporte de Albrook' })
+  @IsString()
+  nombreTo: string;
+
+  @ApiProperty({ example: 'Terminal de David' })
+  @IsString()
+  nombreTd: string;
+
+  @ApiProperty({ example: 250 })
   @IsInt()
   distancia: number;
 
