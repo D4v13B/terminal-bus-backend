@@ -4,10 +4,6 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsInt, IsString } from 'class-validator';
 
 export class UpdateRutaDto extends PartialType(CreateRutaDto) {
-
-    @ApiPropertyOptional({ example: 1 })
-    @IsInt()
-    id?: number;
     
     @ApiProperty({ example: 250 })
     @IsInt()
