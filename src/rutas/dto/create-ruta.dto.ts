@@ -12,11 +12,11 @@ export class CreateRutaDto {
     @IsNotEmpty()
     anden: string;
 
-    @ApiProperty({ example: '08:00' })
+    @ApiProperty({ example: '08:00 a.m' })
     @IsString()
     horaEntrada: string;
 
-    @ApiProperty({ example: '08:00 a.m' })
+    @ApiProperty({ example: '08:00 p.m' })
     @IsString()
     horaSalida: string;
 

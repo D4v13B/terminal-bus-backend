@@ -17,7 +17,7 @@ export class UpdateRutaDto extends PartialType(CreateRutaDto) {
     @IsString()
     anden: string;
     
-    @ApiProperty({ example: '08:00' })
+    @ApiProperty({ example: '08:00 p.m' })
     @IsString()
     horaEntrada: string;
     
