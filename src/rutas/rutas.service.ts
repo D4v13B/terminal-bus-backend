@@ -13,7 +13,21 @@ export class RutasService {
   ) {}
 
   async create(createRutaDto: CreateRutaDto) {
-    return await this.rutaRepository.save(createRutaDto);
+    const { distancia, anden, horaEntrada, horaSalida, provId, toId, tdId } = createRutaDto;
+
+    const nuevaRuta = this.rutaRepository.create({
+
+      distancia,
+      anden,
+      horaEntrada,
+      horaSalida,
+      prov: { id: provId },
+      to: { id: toId },
+      td: { id: tdId },
+
+    })
+
+    return await this.rutaRepository.save(nuevaRuta);
   }
 
   async findAll(): Promise<Ruta[]> {
