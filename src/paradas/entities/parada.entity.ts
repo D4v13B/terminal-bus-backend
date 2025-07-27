@@ -1,6 +1,6 @@
 // parada.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { ParadaRuta } from 'src/parada-ruta/entities/parada-ruta.entity';
+import { ParadaRuta } from '../../parada-ruta/entities/parada-ruta.entity';
 
 @Entity()
 export class Parada {

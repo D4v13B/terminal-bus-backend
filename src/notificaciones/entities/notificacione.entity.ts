@@ -1,5 +1,5 @@
-import { Boleto } from 'src/boletos/entities/boleto.entity';
-import { SalidaProgramada } from 'src/salidas_programadas/entities/salidas_programada.entity';
+import { Boleto } from '../../boletos/entities/boleto.entity';
+// import { SalidaProgramada } from 'src/salidas_programadas/entities/salidas_programada.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -49,7 +49,7 @@ export class Notificacion {
   // @JoinColumn({ name: 'encomienda_id' })
   // encomienda?: Encomienda;
 
-  @ManyToOne(() => SalidaProgramada, { nullable: true })
-  @JoinColumn({ name: 'salida_programada_id' })
-  salidaProgramada?: SalidaProgramada;
+  // @ManyToOne(() => SalidaProgramada, { nullable: true })
+  // @JoinColumn({ name: 'salida_programada_id' })
+  // salidaProgramada?: SalidaProgramada;
 }

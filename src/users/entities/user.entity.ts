@@ -1,6 +1,6 @@
 // usuario.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Boleto } from 'src/boletos/entities/boleto.entity';
+import { Boleto } from '../../boletos/entities/boleto.entity';
 
 @Entity()
 export class User {

@@ -1,8 +1,8 @@
 // ruta.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
-import { Provincia } from 'src/provincias/entities/provincia.entity';
-import { Terminal } from 'src/terminales/entities/terminal.entity';
-import { ParadaRuta } from 'src/parada-ruta/entities/parada-ruta.entity';
+import { Provincia } from '../../provincias/entities/provincia.entity';
+import { Terminal } from '../../terminales/entities/terminal.entity';
+import { ParadaRuta } from '../../parada-ruta/entities/parada-ruta.entity';
 
 @Entity()
 export class Ruta {

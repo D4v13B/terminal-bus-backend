@@ -5,9 +5,6 @@ import { UsersModule } from './users/users.module';
 import { RutasModule } from './rutas/rutas.module';
 import { ProvinciasModule } from './provincias/provincias.module';
 import { ParadasModule } from './paradas/paradas.module';
-import { BusesModule } from './buses/buses.module';
-import { AndenesModule } from './andenes/andenes.module';
-import { SalidasProgramadasModule } from './salidas_programadas/salidas_programadas.module';
 import { BoletosModule } from './boletos/boletos.module';
 import { NotificacionesModule } from './notificaciones/notificaciones.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -23,9 +20,6 @@ import { TerminalesModule } from './terminales/terminales.module';
     RutasModule,
     ProvinciasModule,
     ParadasModule,
-    BusesModule,
-    AndenesModule,
-    SalidasProgramadasModule,
     BoletosModule,
     NotificacionesModule,
     ParadaRutaModule,

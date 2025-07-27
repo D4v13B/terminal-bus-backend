@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Provincia } from 'src/provincias/entities/provincia.entity';
+import { Provincia } from '../../provincias/entities/provincia.entity';
 
 @Entity('terminales')
 export class Terminal {

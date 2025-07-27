@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, OneToMany } from 'typeorm';
-import { Ruta } from 'src/rutas/entities/ruta.entity';
-import { Parada } from 'src/paradas/entities/parada.entity';
-import { Boleto } from 'src/boletos/entities/boleto.entity';
+import { Ruta } from '../../rutas/entities/ruta.entity';
+import { Parada } from '../../paradas/entities/parada.entity';
+import { Boleto } from '../../boletos/entities/boleto.entity';
 
 @Entity()
 export class ParadaRuta {

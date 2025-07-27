@@ -1,6 +1,6 @@
 // provincia.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Terminal } from 'src/terminales/entities/terminal.entity';
+import { Terminal } from '../../terminales/entities/terminal.entity';
 
 @Entity()
 export class Provincia {
