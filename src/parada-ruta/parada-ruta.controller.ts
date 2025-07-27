@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode } from '@nestjs/common';
 import { ParadaRutaService } from './parada-ruta.service';
 import { CreateParadaRutaDto } from './dto/create-parada-ruta.dto';
 import { UpdateParadaRutaDto } from './dto/update-parada-ruta.dto';
+import { GetParadaRuta } from './dto/get-parada-ruta';
+import { ApiOkResponse } from '@nestjs/swagger';
 
 @Controller('parada-ruta')
 export class ParadaRutaController {
@@ -13,8 +15,17 @@ export class ParadaRutaController {
   }
 
   @Get()
-  findAll() {
-    return this.paradaRutaService.findAll();
+  @HttpCode(200)
+  @ApiOkResponse({ type: [GetParadaRuta]})
+  async getParadaRutas(): Promise<GetParadaRuta[]> {
+    const paradaruta = await this.paradaRutaService.findAll();
+
+    return paradaruta.map(paradaRuta => ({
+      nombre: paradaRuta.ruta.prov.nombre,
+      precio: paradaRuta.precio,
+      long: paradaRuta.parada.long,
+      lat: paradaRuta.parada.lat,
+    }))
   }
 
   @Get(':id')

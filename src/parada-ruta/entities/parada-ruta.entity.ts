@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, OneToMany, Decimal128 } from 'typeorm';
 import { Ruta } from '../../rutas/entities/ruta.entity';
 import { Parada } from '../../paradas/entities/parada.entity';
 import { Boleto } from '../../boletos/entities/boleto.entity';
@@ -9,7 +9,7 @@ export class ParadaRuta {
   id: number;
 
   @Column('decimal')
-  precio: number;
+  precio: Decimal128;
 
   @ManyToOne(() => Ruta, ruta => ruta.paradasRuta)
   ruta: Ruta;
