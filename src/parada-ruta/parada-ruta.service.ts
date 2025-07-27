@@ -1,15 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { CreateParadaRutaDto } from './dto/create-parada-ruta.dto';
 import { UpdateParadaRutaDto } from './dto/update-parada-ruta.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ParadaRuta } from './entities/parada-ruta.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ParadaRutaService {
-  create(createParadaRutaDto: CreateParadaRutaDto) {
-    return 'This action adds a new paradaRuta';
+  constructor(
+    @InjectRepository(ParadaRuta)
+    private paradaRutaRepository: Repository<ParadaRuta>
+  ){}
+
+  async create(createParadaRutaDto: CreateParadaRutaDto) {
+    return await 'This action adds a new paradaRuta';
   }
 
-  findAll() {
-    return `This action returns all paradaRuta`;
+  async findAll(): Promise<ParadaRuta[]> {
+    return await this.paradaRutaRepository.find({
+      relations: ['ruta', 'ruta.prov', 'parada', 'boletos'],
+    });
   }
 
   findOne(id: number) {

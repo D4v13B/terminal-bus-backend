@@ -1,5 +1,5 @@
 // parada.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Decimal128 } from 'typeorm';
 import { ParadaRuta } from '../../parada-ruta/entities/parada-ruta.entity';
 
 @Entity()
@@ -10,11 +10,11 @@ export class Parada {
   @Column()
   nombre: string;
 
-  @Column('decimal')
-  lat: number;
+  @Column()
+  lat: string;
 
-  @Column('decimal')
-  long: number;
+  @Column()
+  long: string;
 
   @OneToMany(() => ParadaRuta, paradaRuta => paradaRuta.parada)
   paradasRuta: ParadaRuta[];
