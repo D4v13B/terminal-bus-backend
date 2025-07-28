@@ -2,13 +2,18 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { BoletosService } from './boletos.service';
 import { CreateBoletoDto } from './dto/create-boleto.dto';
 import { UpdateBoletoDto } from './dto/update-boleto.dto';
+import { ApiBody, ApiCreatedResponse } from '@nestjs/swagger';
+import { Boleto } from './entities/boleto.entity';
 
 @Controller('boletos')
 export class BoletosController {
   constructor(private readonly boletosService: BoletosService) {}
 
+
   @Post()
-  create(@Body() createBoletoDto: CreateBoletoDto) {
+  @ApiCreatedResponse({ type: Boleto, description: 'Boleto creado exitosamente' })
+  @ApiBody({ type: CreateBoletoDto })
+  async create(@Body() createBoletoDto: CreateBoletoDto): Promise<Boleto> {
     return this.boletosService.create(createBoletoDto);
   }
 
