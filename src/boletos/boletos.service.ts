@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { ParadaRuta } from 'src/parada-ruta/entities/parada-ruta.entity';
+import { UUID } from 'crypto';
 
 @Injectable()
 export class BoletosService {
@@ -54,6 +55,20 @@ export class BoletosService {
 
   findOne(id: number) {
     return `This action returns a #${id} boleto`;
+  }
+
+  async findByUserId(userId: number): Promise<Boleto[]> {
+    return await this.boletoRepository.find({ where: { 
+      user: {id: userId} },
+    relations: ['user', 'paradaRuta'],
+    });
+  }
+
+  //where: { tokenBoleto: tokenBoleto.toString() }
+  async findByToken(tokenBoleto: UUID) {
+    return await this.boletoRepository.findOne({ where: {tokenBoleto},
+    relations: ['user', 'paradaRuta'],
+    });
   }
 
   update(id: number, updateBoletoDto: UpdateBoletoDto) {

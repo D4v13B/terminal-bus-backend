@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpCode } from '@nestjs/common';
 import { BoletosService } from './boletos.service';
 import { CreateBoletoDto } from './dto/create-boleto.dto';
 import { UpdateBoletoDto } from './dto/update-boleto.dto';
-import { ApiBody, ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiBody, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { Boleto } from './entities/boleto.entity';
+import { UUID } from 'crypto';
 
 @Controller('boletos')
 export class BoletosController {
@@ -25,6 +26,21 @@ export class BoletosController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.boletosService.findOne(+id);
+  }
+
+  //Especificar responses
+  @Get(':userId')
+  @HttpCode(200)
+  async getByuser(@Query('userId') userId: number) {
+  return this.boletosService.findByUserId(userId);
+  }
+
+  //Especificar responses
+  @Get(':token')
+  @HttpCode(200)
+  @ApiOkResponse({ type: Boleto})
+  async getByToken(@Param('token') token: UUID){
+    return await this.boletosService.findByToken(token);
   }
 
   @Patch(':id')
