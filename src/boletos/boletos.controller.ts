@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpCode, Put } from '@nestjs/common';
 import { BoletosService } from './boletos.service';
 import { CreateBoletoDto } from './dto/create-boleto.dto';
 import { UpdateBoletoDto } from './dto/update-boleto.dto';
@@ -31,6 +31,7 @@ export class BoletosController {
   //Especificar responses
   @Get('user/:userId')
   @HttpCode(200)
+  @ApiOkResponse({ type: [Boleto]})
   async getByuser(@Query('userId') userId: string) {
   return this.boletosService.findByUserId(userId);
   }
@@ -38,12 +39,13 @@ export class BoletosController {
   //Especificar responses
   @Get('token/:token')
   @HttpCode(200)
-  @ApiOkResponse({ type: Boleto})
+  @ApiOkResponse({ type: [Boleto]})
   async getByToken(@Param('token') token: UUID){
     return await this.boletosService.findByToken(token);
   }
 
-  @Patch(':id')
+  @Put(':id')
+  @HttpCode(200)
   update(@Param('id') id: string, @Body() updateBoletoDto: UpdateBoletoDto) {
     return this.boletosService.update(+id, updateBoletoDto);
   }

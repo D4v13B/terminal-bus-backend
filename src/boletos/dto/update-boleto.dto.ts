@@ -1,4 +1,10 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateBoletoDto } from './create-boleto.dto';
+import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateBoletoDto extends PartialType(CreateBoletoDto) {}
+export class UpdateBoletoDto extends PartialType(CreateBoletoDto) {
+
+    @ApiProperty({ example: true })
+    valido: boolean;
+
+}

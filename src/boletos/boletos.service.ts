@@ -71,8 +71,16 @@ export class BoletosService {
     });
   }
 
-  update(id: number, updateBoletoDto: UpdateBoletoDto) {
-    return `This action updates a #${id} boleto`;
+  async update(id: number, updateBoletoDto: UpdateBoletoDto) {
+    const toUpdate = await this.boletoRepository.findOne({ where: { id } });
+
+    if (!toUpdate) {
+      throw new NotFoundException(`Boleto with id ${id} not found`);
+    }
+
+    const updated = Object.assign(toUpdate, updateBoletoDto);
+
+    return await this.boletoRepository.save(updated);
   }
 
   remove(id: number) {
