@@ -13,6 +13,9 @@
     "paths": {
       "src/*": ["src/*"]
     },
+    "skipDefaultLibCheck": true,
+    "noErrorTruncation": false,
+    "preserveSymlinks": false,
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,

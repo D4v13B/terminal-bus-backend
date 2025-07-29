@@ -10,11 +10,11 @@ export class Terminal {
   nombre: string;
 
   @Column()
-  long: number;
+  long: string;
 
   @Column()
-  lat: number;
+  lat: string;
 
-  @ManyToOne(() => Provincia, provincia => provincia.terminales)
+  @ManyToOne(() => Provincia, (provincia) => provincia.terminales)
   provincia: Provincia;
 }

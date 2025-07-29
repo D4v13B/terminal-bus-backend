@@ -1,3 +1,4 @@
+import { User } from 'src/users/entities/user.entity';
 import { Boleto } from '../../boletos/entities/boleto.entity';
 // import { SalidaProgramada } from 'src/salidas_programadas/entities/salidas_programada.entity';
 import {
@@ -35,6 +36,10 @@ export class Notificacion {
 
   @Column('text')
   mensaje: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  usuario?: User;
 
   @CreateDateColumn({ name: 'enviado_en' })
   enviadoEn: Date;

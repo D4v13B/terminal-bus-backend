@@ -12,9 +12,17 @@ import { AppDataSourceOptions } from './database/data-source';
 // import { AppDataSource } from './database/database.provider';
 import { ParadaRutaModule } from './parada-ruta/parada-ruta.module';
 import { TerminalesModule } from './terminales/terminales.module';
+import { SessionsModule } from './sessions/sessions.module';
+import { AccountsModule } from './accounts/accounts.module';
+import { VerificationsModule } from './verifications/verifications.module';
+import { AuthModule } from '@thallesp/nestjs-better-auth';
+import { auth } from './utils/auth';
+import { AuthModule as Auths } from './auth/auth.module';
 
 @Module({
   imports: [
+    AuthModule.forRoot(auth),
+    Auths,
     TypeOrmModule.forRoot(AppDataSourceOptions),
     UsersModule,
     RutasModule,
@@ -24,6 +32,10 @@ import { TerminalesModule } from './terminales/terminales.module';
     NotificacionesModule,
     ParadaRutaModule,
     TerminalesModule,
+    SessionsModule,
+    AccountsModule,
+    VerificationsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

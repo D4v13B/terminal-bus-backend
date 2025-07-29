@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Ruta } from '../rutas/entities/ruta.entity'
+import { Ruta } from '../rutas/entities/ruta.entity';
 import { CreateRutaDto } from './dto/create-ruta.dto';
 import { UpdateRutaDto } from './dto/update-ruta.dto';
 
@@ -13,10 +13,10 @@ export class RutasService {
   ) {}
 
   async create(createRutaDto: CreateRutaDto) {
-    const { distancia, anden, horaEntrada, horaSalida, provId, toId, tdId } = createRutaDto;
+    const { distancia, anden, horaEntrada, horaSalida, provId, toId, tdId } =
+      createRutaDto;
 
     const nuevaRuta = this.rutaRepository.create({
-
       distancia,
       anden,
       horaEntrada,
@@ -24,8 +24,7 @@ export class RutasService {
       prov: { id: provId },
       to: { id: toId },
       td: { id: tdId },
-
-    })
+    });
 
     return await this.rutaRepository.save(nuevaRuta);
   }
@@ -43,7 +42,7 @@ export class RutasService {
   }
 
   async update(id: number, updateRutaDto: UpdateRutaDto) {
-    const toUpdate = await this.rutaRepository.findOne({ where: { id }});
+    const toUpdate = await this.rutaRepository.findOne({ where: { id } });
 
     if (!toUpdate) {
       throw new Error(`Ruta with id ${id} not found`);
