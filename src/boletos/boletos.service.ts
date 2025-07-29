@@ -57,7 +57,7 @@ export class BoletosService {
     return `This action returns a #${id} boleto`;
   }
 
-  async findByUserId(userId: number): Promise<Boleto[]> {
+  async findByUserId(userId: string): Promise<Boleto[]> {
     return await this.boletoRepository.find({ where: { 
       user: {id: userId} },
     relations: ['user', 'paradaRuta'],

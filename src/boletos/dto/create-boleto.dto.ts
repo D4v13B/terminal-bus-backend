@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsDateString, IsInt, IsUUID } from "class-validator";
+import { IsDate, IsDateString, IsInt, IsString, IsUUID } from "class-validator";
 
 export class CreateBoletoDto {
 
@@ -8,8 +8,8 @@ export class CreateBoletoDto {
     fechaUso: Date; 
 
     @ApiProperty({ example: 1})
-    @IsInt()
-    userId: number;
+    @IsString()
+    userId: string;
 
     @ApiProperty({ example: 1})
     @IsInt()

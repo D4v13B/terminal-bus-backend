@@ -29,14 +29,14 @@ export class BoletosController {
   }
 
   //Especificar responses
-  @Get(':userId')
+  @Get('user/:userId')
   @HttpCode(200)
-  async getByuser(@Query('userId') userId: number) {
+  async getByuser(@Query('userId') userId: string) {
   return this.boletosService.findByUserId(userId);
   }
 
   //Especificar responses
-  @Get(':token')
+  @Get('token/:token')
   @HttpCode(200)
   @ApiOkResponse({ type: Boleto})
   async getByToken(@Param('token') token: UUID){
