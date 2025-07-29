@@ -14,8 +14,9 @@ export class Boleto {
   @ApiProperty({ example: '2025-07-28' })
   fechaUso: Date;
 
+  //Verificar si el boleto es válido o no
   @Column()
-  @ApiProperty({ example: true })
+  @ApiProperty({ type: 'boolean', default: true })
   valido: boolean;
 
   @Column({ type: 'uuid' })

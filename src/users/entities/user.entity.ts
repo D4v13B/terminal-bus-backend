@@ -42,14 +42,11 @@ export class User {
   updatedAt: Date;
 
   @OneToMany(() => Session, (session) => session.user)
-  @ApiProperty({ type: () => [Session] })
   sessions: Session[];
 
   @OneToMany(() => Account, (account) => account.user)
-  @ApiProperty({ type: () => [Account] })
   accounts: Account[];
 
   @OneToMany(() => Boleto, (boleto) => boleto.user)
-  @ApiProperty({ type: () => [Boleto] })
   boletos: Boleto[];
 }
