@@ -47,7 +47,7 @@ export class RutasController {
   async getRutas(): Promise<GetRutaDto[]> {
     const rutas = await this.rutasService.findAll();
 
-    return rutas.map(ruta => ({
+    return rutas.map((ruta) => ({
       id: ruta.id,
       nombreTo: ruta.to?.nombre,
       nombreTd: ruta.td?.nombre,
@@ -63,7 +63,6 @@ export class RutasController {
   @ApiOkResponse({ type: GetRutaDto })
   findOne(@Param('id') id: string) {
     return this.rutasService.findOne(+id);
-    
   }
 
   @Put(':id')

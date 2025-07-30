@@ -15,7 +15,7 @@ export class Boleto {
   fechaUso: Date;
 
   //Verificar si el boleto es válido o no
-  @Column()
+  @Column({ default: true })
   @ApiProperty({ type: 'boolean', default: true })
   valido: boolean;
 

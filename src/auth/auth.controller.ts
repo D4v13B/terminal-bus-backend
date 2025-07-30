@@ -68,7 +68,6 @@ export class AuthController {
         },
         asResponse: true,
       });
-      
 
       // Puedes adaptar esta respuesta a tus necesidades
       // return {

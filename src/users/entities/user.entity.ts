@@ -22,7 +22,7 @@ export class User {
   name: string;
 
   @Column({ type: 'varchar', length: 255, unique: true })
-  @ApiProperty({ example: 'chili@gmail.com'})
+  @ApiProperty({ example: 'chili@gmail.com' })
   email: string;
 
   @Column()
@@ -30,7 +30,7 @@ export class User {
   emailVerified: boolean;
 
   @Column('text', { nullable: true })
-  @ApiProperty({ example: 'https://example.com/image.jpg'})
+  @ApiProperty({ example: 'https://example.com/image.jpg' })
   image: string;
 
   @CreateDateColumn()
