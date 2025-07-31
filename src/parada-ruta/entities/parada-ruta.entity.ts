@@ -21,6 +21,7 @@ export class ParadaRuta {
   precio: number; // This will store values like 10.99, 125.00, etc.
 
   @ManyToOne(() => Ruta, (ruta) => ruta.paradasRuta)
+  @ApiProperty({ type: () => Ruta })
   ruta: Ruta;
 
   @ManyToOne(() => Parada, (parada) => parada.paradasRuta)
