@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpCode, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  HttpCode,
+  Put,
+} from '@nestjs/common';
 import { BoletosService } from './boletos.service';
 import { CreateBoletoDto } from './dto/create-boleto.dto';
 import { UpdateBoletoDto } from './dto/update-boleto.dto';
@@ -10,9 +20,11 @@ import { UUID } from 'crypto';
 export class BoletosController {
   constructor(private readonly boletosService: BoletosService) {}
 
-
   @Post()
-  @ApiCreatedResponse({ type: Boleto, description: 'Boleto creado exitosamente' })
+  @ApiCreatedResponse({
+    type: Boleto,
+    description: 'Boleto creado exitosamente',
+  })
   @ApiBody({ type: CreateBoletoDto })
   async create(@Body() createBoletoDto: CreateBoletoDto): Promise<Boleto> {
     return this.boletosService.create(createBoletoDto);
@@ -31,16 +43,16 @@ export class BoletosController {
   //Especificar responses
   @Get('user/:userId')
   @HttpCode(200)
-  @ApiOkResponse({ type: [Boleto]})
+  @ApiOkResponse({ type: [Boleto] })
   async getByuser(@Query('userId') userId: string) {
-  return this.boletosService.findByUserId(userId);
+    return this.boletosService.findByUserId(userId);
   }
 
   //Especificar responses
   @Get('token/:token')
   @HttpCode(200)
-  @ApiOkResponse({ type: [Boleto]})
-  async getByToken(@Param('token') token: UUID){
+  @ApiOkResponse({ type: [Boleto] })
+  async getByToken(@Param('token') token: UUID) {
     return await this.boletosService.findByToken(token);
   }
 
