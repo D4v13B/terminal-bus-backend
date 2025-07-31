@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpCode,
+} from '@nestjs/common';
 import { ParadaRutaService } from './parada-ruta.service';
 import { CreateParadaRutaDto } from './dto/create-parada-ruta.dto';
 import { UpdateParadaRutaDto } from './dto/update-parada-ruta.dto';
@@ -16,17 +25,21 @@ export class ParadaRutaController {
 
   @Get()
   @HttpCode(200)
-  @ApiOkResponse({ type: [GetParadaRuta]})
+  @ApiOkResponse({ type: [GetParadaRuta] })
   async getParadaRutas(): Promise<GetParadaRuta[]> {
     const paradaruta = await this.paradaRutaService.findAll();
 
-    return paradaruta.map(paradaRuta => ({
+    return paradaruta.map((paradaRuta) => ({
       id: paradaRuta.id,
-      nombre: paradaRuta.ruta.prov.nombre,
+      paradaId: paradaRuta.parada.id,
+      anden: paradaRuta.ruta.anden,
+      horaSalida: paradaRuta.ruta.horaEntrada,
+      nombreRuta: `${paradaRuta.ruta.to.nombre} - ${paradaRuta.ruta.td.nombre}`,
+      nombreParada: paradaRuta.parada.nombre,
       precio: paradaRuta.precio,
       long: paradaRuta.parada.long,
       lat: paradaRuta.parada.lat,
-    }))
+    }));
   }
 
   @Get(':id')
@@ -35,7 +48,10 @@ export class ParadaRutaController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateParadaRutaDto: UpdateParadaRutaDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateParadaRutaDto: UpdateParadaRutaDto,
+  ) {
     return this.paradaRutaService.update(+id, updateParadaRutaDto);
   }
 

@@ -11,42 +11,42 @@ import { UUID } from 'crypto';
 
 @Injectable()
 export class BoletosService {
-
   constructor(
-      @InjectRepository(Boleto)
-      private boletoRepository: Repository<Boleto>,
+    @InjectRepository(Boleto)
+    private boletoRepository: Repository<Boleto>,
 
-       @InjectRepository(User)
-      private userRepository: Repository<User>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
 
-      @InjectRepository(ParadaRuta)
-      private paradaRutaRepository: Repository<ParadaRuta>,
-    ) {}
+    @InjectRepository(ParadaRuta)
+    private paradaRutaRepository: Repository<ParadaRuta>,
+  ) {}
 
   async create(createBoletoDto: CreateBoletoDto): Promise<Boleto> {
-    const{ fechaUso, paradaRutaId, userId } = createBoletoDto;
+    const { fechaUso, paradaRutaId, userId } = createBoletoDto;
 
     const user = await this.userRepository.findOneBy({ id: userId });
-  if (!user) {
-    throw new NotFoundException(`Usuario con ID ${userId} no encontrado`);
-  }
+    if (!user) {
+      throw new NotFoundException(`Usuario con ID ${userId} no encontrado`);
+    }
 
-  const paradaRuta = await this.paradaRutaRepository.findOneBy({ id: paradaRutaId });
-  if (!paradaRuta) {
-    throw new NotFoundException(`ParadaRuta con ID ${paradaRutaId} no encontrada`);
-  }
+    const paradaRuta = await this.paradaRutaRepository.findOneBy({
+      id: paradaRutaId,
+    });
+    if (!paradaRuta) {
+      throw new NotFoundException(
+        `ParadaRuta con ID ${paradaRutaId} no encontrada`,
+      );
+    }
 
     const nuevoBoleto = this.boletoRepository.create({
-
       fechaUso,
       tokenBoleto: uuidv4(),
-      user: {id: userId},
-      paradaRuta: {id: paradaRutaId},
-
-    })
+      user: { id: userId },
+      paradaRuta: { id: paradaRutaId },
+    });
 
     return await this.boletoRepository.save(nuevoBoleto);
-      
   }
 
   findAll() {
@@ -58,16 +58,26 @@ export class BoletosService {
   }
 
   async findByUserId(userId: string): Promise<Boleto[]> {
-    return await this.boletoRepository.find({ where: { 
-      user: {id: userId} },
-    relations: ['user', 'paradaRuta'],
+    return await this.boletoRepository.find({
+      where: {
+        user: { id: userId },
+      },
+      relations: [
+        'user',
+        'paradaRuta',
+        'paradaRuta.ruta',
+        'paradaRuta.ruta.to',
+        'paradaRuta.ruta.td',
+        'paradaRuta.parada',
+      ],
     });
   }
 
   //where: { tokenBoleto: tokenBoleto.toString() }
   async findByToken(tokenBoleto: UUID) {
-    return await this.boletoRepository.findOne({ where: {tokenBoleto},
-    relations: ['user', 'paradaRuta'],
+    return await this.boletoRepository.findOne({
+      where: { tokenBoleto },
+      relations: ['user', 'paradaRuta'],
     });
   }
 
