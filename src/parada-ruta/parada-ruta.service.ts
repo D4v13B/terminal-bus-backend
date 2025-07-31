@@ -9,8 +9,8 @@ import { Repository } from 'typeorm';
 export class ParadaRutaService {
   constructor(
     @InjectRepository(ParadaRuta)
-    private paradaRutaRepository: Repository<ParadaRuta>
-  ){}
+    private paradaRutaRepository: Repository<ParadaRuta>,
+  ) {}
 
   async create(createParadaRutaDto: CreateParadaRutaDto) {
     return await 'This action adds a new paradaRuta';
@@ -18,7 +18,14 @@ export class ParadaRutaService {
 
   async findAll(): Promise<ParadaRuta[]> {
     return await this.paradaRutaRepository.find({
-      relations: ['ruta', 'ruta.prov', 'parada', 'boletos'],
+      relations: [
+        'ruta',
+        'ruta.prov',
+        'parada',
+        'boletos',
+        'ruta.to',
+        'ruta.td',
+      ],
     });
   }
 
