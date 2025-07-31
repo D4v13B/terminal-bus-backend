@@ -12,6 +12,8 @@ import { AuthService } from './auth.service';
 import { AuthGuard, Public } from '@thallesp/nestjs-better-auth';
 import { auth } from 'src/utils/auth';
 import { JwtService } from '@nestjs/jwt';
+import { Request as ResEx } from 'express';
+import { date } from 'better-auth/*';
 
 interface SignInResponse {
   redirect: boolean;
@@ -76,27 +78,29 @@ export class AuthController {
       //   status: response.status,
       // };
 
-      if (!response.ok) {
-        const errorBody = await response.json();
-        throw new HttpException(
-          errorBody?.message || 'Failed to register user',
-          response.status,
-        );
-      }
+      // if (!response.ok) {
+      //   const errorBody = await response.json();
+      //   throw new HttpException(
+      //     errorBody?.message || 'Failed to register user',
+      //     response.status,
+      //   );
+      // }
       // console.log(await response.json());
       const data = (await response.json()) as SignInResponse;
 
-      const dataToken = {
-        user: data.user,
-      };
+      // const dataToken = {
+      //   user: data.user,
+      // };
 
-      return {
-        message: 'User loged successfully',
-        user: data.user,
-        accesToken: data.token,
-        token: this.jwtService.sign(dataToken),
-        status: response.status,
-      };
+      // return {
+      //   message: 'User loged successfully',
+      //   user: data.user,
+      //   accesToken: data.token,
+      //   token: this.jwtService.sign(dataToken),
+      //   status: response.status,
+      // };
+
+      return data;
     } catch (error: any) {
       console.error('Error during login:', error);
       throw new HttpException(
@@ -147,14 +151,16 @@ export class AuthController {
       }
       const data = (await response.json()) as SignUpResponse;
 
-      const authToken = response.headers.get('set-auth-token');
+      // const authToken = response.headers.get('set-auth-token');
 
-      return {
-        message: 'User registered successfully',
-        user: data.user,
-        token: authToken, // puedes omitir esto si vas a manejar cookie de sesión
-        status: response.status,
-      };
+      // return {
+      //   message: 'User registered successfully',
+      //   user: data.user,
+      //   token: authToken, // puedes omitir esto si vas a manejar cookie de sesión
+      //   status: response.status,
+      // };
+
+      return data;
     } catch (err: unknown) {
       const error = err as { message?: string };
       console.error('Registration error:', error);
@@ -184,9 +190,33 @@ export class AuthController {
     return response;
   }
 
-  @Get('session')
+  @Get('get-session')
   @UseGuards(AuthGuard)
-  getProfile(@Request() req) {
-    return { user: req.user };
+  async getSession(@Request() request: ResEx) {
+    // const user = req.user;
+
+    // return {
+    //   session: {
+    //     user: {
+    //       id: user.id,
+    //       name: user.name,
+    //       email: user.email,
+    //       // cualquier otro campo útil
+    //     },
+    //     token: req.token, // si lo tienes accesible, opcional
+    //   },
+    // };
+
+    const headers = new Headers();
+    for (const key in request.headers) {
+      if (request.headers[key]) {
+        headers.append(key, request.headers[key].toString());
+      }
+    }
+    const session = auth.api.getSession({
+      headers,
+    });
+
+    return session;
   }
 }
