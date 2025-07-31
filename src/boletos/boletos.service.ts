@@ -53,7 +53,7 @@ export class BoletosService {
     return `This action returns all boletos`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} boleto`;
   }
 
@@ -75,9 +75,8 @@ export class BoletosService {
 
   //where: { tokenBoleto: tokenBoleto.toString() }
   async findByToken(tokenBoleto: UUID) {
-    return await this.boletoRepository.findOne({
-      where: { tokenBoleto },
-      relations: ['user', 'paradaRuta'],
+    return await this.boletoRepository.findOne({ where: {tokenBoleto},
+    relations: ['user', 'paradaRuta', 'paradaRuta.ruta.td',],
     });
   }
 

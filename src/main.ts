@@ -1,9 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     bodyParser: false, // Required for Better Auth
   });
 
@@ -27,6 +29,12 @@ async function bootstrap() {
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
+
+  // Configurar la carpeta de vistas
+  app.setBaseViewsDir(join(__dirname, '..', 'views'));
+
+  // Usar Handlebars como motor de plantillas
+  app.setViewEngine('hbs');
 
   await app.listen(process.env.PORT ?? 3000);
 }

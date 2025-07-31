@@ -15,6 +15,10 @@ import { UpdateBoletoDto } from './dto/update-boleto.dto';
 import { ApiBody, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { Boleto } from './entities/boleto.entity';
 import { UUID } from 'crypto';
+import { Response } from 'express';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
+
 
 @Controller('boletos')
 export class BoletosController {
@@ -35,12 +39,7 @@ export class BoletosController {
     return this.boletosService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.boletosService.findOne(+id);
-  }
 
-  //Especificar responses
   @Get('user/:userId')
   @HttpCode(200)
   @ApiOkResponse({ type: [Boleto] })
@@ -48,13 +47,28 @@ export class BoletosController {
     return this.boletosService.findByUserId(userId);
   }
 
-  //Especificar responses
+
   @Get('token/:token')
   @HttpCode(200)
   @ApiOkResponse({ type: [Boleto] })
   async getByToken(@Param('token') token: UUID) {
     return await this.boletosService.findByToken(token);
   }
+
+@Get('view/:tokenBoleto')
+async renderBoleto(@Param('tokenBoleto') tokenBoleto: UUID, @Res() res: Response) {
+  const boleto = await this.boletosService.findByToken(tokenBoleto);
+
+  if (!boleto) {
+    return res.status(404).send('Boleto not found');
+  }
+
+  const fechaUsoFormateada = format(new Date(boleto.fechaUso), 'dd/MM/yyyy HH:mm', { locale: es });
+
+  return res.render('boleto', { boleto: {...boleto, fechaUsoFormateada} });
+}
+
+
 
   @Put(':id')
   @HttpCode(200)
