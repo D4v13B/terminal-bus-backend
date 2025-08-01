@@ -39,6 +39,7 @@ export class ParadaRutaController {
       precio: paradaRuta.precio,
       long: paradaRuta.parada.long,
       lat: paradaRuta.parada.lat,
+      rutaId: paradaRuta.ruta.id,
     }));
   }
 

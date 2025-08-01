@@ -37,4 +37,8 @@ export class GetParadaRuta {
   @ApiProperty({ example: 1234 })
   @IsString()
   lat: string;
+
+  @ApiProperty({ example: 63 })
+  @IsInt()
+  rutaId: number;
 }
