@@ -18,6 +18,8 @@ import { VerificationsModule } from './verifications/verifications.module';
 import { AuthModule } from '@thallesp/nestjs-better-auth';
 import { auth } from './utils/auth';
 import { AuthModule as Auths } from './auth/auth.module';
+import { HttpModule } from '@nestjs/axios';
+import { BotApiModule } from './bot-api/bot-api.module';
 
 @Module({
   imports: [
@@ -36,6 +38,8 @@ import { AuthModule as Auths } from './auth/auth.module';
     AccountsModule,
     VerificationsModule,
     AuthModule,
+    HttpModule,
+    BotApiModule,
   ],
   controllers: [AppController],
   providers: [AppService],

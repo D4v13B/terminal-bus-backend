@@ -75,8 +75,9 @@ export class BoletosService {
 
   //where: { tokenBoleto: tokenBoleto.toString() }
   async findByToken(tokenBoleto: UUID) {
-    return await this.boletoRepository.findOne({ where: {tokenBoleto},
-    relations: ['user', 'paradaRuta', 'paradaRuta.ruta.td',],
+    return await this.boletoRepository.findOne({
+      where: { tokenBoleto },
+      relations: ['user', 'paradaRuta', 'paradaRuta.ruta.td'],
     });
   }
 
